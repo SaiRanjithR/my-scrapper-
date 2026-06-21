@@ -660,14 +660,20 @@ def send_email_digest(html_content: str, date_str: str) -> bool:
     recipient_email = os.environ.get("RECIPIENT_EMAIL")
     app_password = os.environ.get("GMAIL_APP_PASSWORD")
 
+    # Debug logging — print whether each credential is set (never print actual values)
+    print(f"  SENDER_EMAIL present: {bool(sender_email)}, length: {len(sender_email) if sender_email else 0}")
+    print(f"  RECIPIENT_EMAIL present: {bool(recipient_email)}, length: {len(recipient_email) if recipient_email else 0}")
+    print(f"  GMAIL_APP_PASSWORD present: {bool(app_password)}, length: {len(app_password) if app_password else 0}")
+
     if (
         not all([sender_email, recipient_email, app_password])
         or sender_email == "your_sender_gmail_here@gmail.com"
     ):
         print(
-            "Gmail SMTP credentials or email placeholders detected. Skipping SMTP send."
+            "ERROR: Gmail SMTP credentials missing or placeholders detected. Cannot send email."
         )
-        return True
+        print("  Make sure SENDER_EMAIL, RECIPIENT_EMAIL, and GMAIL_APP_PASSWORD are set as GitHub Secrets.")
+        return False
 
     msg = MIMEMultipart("alternative")
     msg["Subject"] = f"Antigravity AI & Tech Premium Digest - {date_str}"

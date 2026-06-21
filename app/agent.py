@@ -163,7 +163,11 @@ def render_html(ctx: Context, node_input: dict) -> str:
 @node
 def send_email(node_input: str) -> str:
     """Send the rendered HTML via SMTP or save it locally if credentials are not configured."""
-    print("Sending digest email...")
+    print("=" * 60)
+    print("SEND EMAIL NODE REACHED")
+    print(f"  HTML content length: {len(node_input) if node_input else 0}")
+    print(f"  GOOGLE_GENAI_USE_VERTEXAI: {os.environ.get('GOOGLE_GENAI_USE_VERTEXAI')}")
+    print("=" * 60)
     today_str = datetime.date.today().strftime("%B %d, %Y")
     success = send_email_digest(node_input, today_str)
     if success:

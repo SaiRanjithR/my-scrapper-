@@ -40,15 +40,26 @@ if not project_id or project_id == "your_gcp_project_id_here":
         pass
 
 api_key = os.environ.get("GEMINI_API_KEY")
-if api_key and api_key.startswith("AIzaSy"):
-    os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "False"
-else:
-    os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "True"
-    if "GOOGLE_CLOUD_LOCATION" not in os.environ:
-        os.environ["GOOGLE_CLOUD_LOCATION"] = "us-central1"
-    # Unset invalid placeholder key if it exists
-    if api_key and api_key == "your_api_key_here":
-        del os.environ["GEMINI_API_KEY"]
+
+# If GOOGLE_GENAI_USE_VERTEXAI is already explicitly set (e.g. by CI/CD),
+# respect that value and don't override it.
+if "GOOGLE_GENAI_USE_VERTEXAI" not in os.environ:
+    # Auto-detect: AIzaSy and AQ. prefixed keys are AI Studio keys
+    if api_key and (api_key.startswith("AIzaSy") or api_key.startswith("AQ.")):
+        os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "False"
+    else:
+        os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "True"
+        if "GOOGLE_CLOUD_LOCATION" not in os.environ:
+            os.environ["GOOGLE_CLOUD_LOCATION"] = "us-central1"
+
+# Unset invalid placeholder key if it exists
+if api_key and api_key == "your_api_key_here":
+    del os.environ["GEMINI_API_KEY"]
+
+# Ensure the genai SDK can find the API key
+if api_key and os.environ.get("GOOGLE_GENAI_USE_VERTEXAI") == "False":
+    os.environ["GOOGLE_API_KEY"] = api_key
+
 
 
 # 1. Define structured schemas for synthesis

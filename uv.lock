@@ -158,6 +158,7 @@ dependencies = [
     { name = "google-cloud-logging" },
     { name = "httpx" },
     { name = "opentelemetry-instrumentation-google-genai" },
+    { name = "python-dotenv" },
 ]
 
 [package.optional-dependencies]
@@ -188,6 +189,7 @@ requires-dist = [
     { name = "google-cloud-logging", specifier = ">=3.12.0,<4.0.0" },
     { name = "httpx", specifier = ">=0.27.0" },
     { name = "opentelemetry-instrumentation-google-genai", specifier = ">=0.1.0,<1.0.0" },
+    { name = "python-dotenv", specifier = ">=1.0.0" },
     { name = "ruff", marker = "extra == 'lint'", specifier = ">=0.4.6,<1.0.0" },
     { name = "ty", marker = "extra == 'lint'", specifier = ">=0.0.1a0" },
 ]

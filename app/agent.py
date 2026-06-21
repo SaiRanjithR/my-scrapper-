@@ -40,7 +40,7 @@ if not project_id or project_id == "your_gcp_project_id_here":
         pass
 
 api_key = os.environ.get("GEMINI_API_KEY")
-if api_key and api_key != "your_api_key_here" and len(api_key.strip()) > 10:
+if api_key and api_key.startswith("AIzaSy"):
     os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "False"
 else:
     os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "True"
@@ -183,9 +183,11 @@ workflow = Workflow(
     ],
     description="Gathers tech/AI updates, synthesizes them with Gemini, and emails a premium brutalist-themed HTML digest under the name 'your mini scrapper'.",
 )
+root_agent = workflow
 
 # 4. Instantiate the ADK App
 app = App(
     root_agent=workflow,
     name="app",
 )
+

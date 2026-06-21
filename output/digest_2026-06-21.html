@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>your mini scrapper</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F4F3EF;
+            color: #1A1A1A;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container {
+            max-width: 680px;
+            margin: 30px auto;
+            background-color: #F4F3EF;
+            border: 3px solid #1A1A1A;
+            box-shadow: 8px 8px 0px #1A1A1A;
+            overflow: hidden;
+        }
+        .header {
+            background-color: #F4F3EF;
+            border-bottom: 3px solid #1A1A1A;
+            padding: 40px 35px 35px 35px;
+            text-align: left;
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            border-bottom: 1.5px solid #1A1A1A;
+            padding-bottom: 15px;
+        }
+        .logo {
+            font-family: 'Oswald', 'Arial Narrow', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #1A1A1A;
+        }
+        .logo-sub {
+            font-family: 'Oswald', 'Arial Narrow', sans-serif;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #1A1A1A;
+            background-color: #D4FF00;
+            border: 1px solid #1A1A1A;
+            padding: 2px 8px;
+        }
+        .hero-title {
+            font-family: 'Oswald', 'Arial Narrow', 'Impact', sans-serif;
+            margin: 0;
+            color: #1A1A1A;
+            font-size: 54px;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            text-transform: uppercase;
+            line-height: 0.9;
+            margin-bottom: 25px;
+        }
+        .header-badge {
+            display: inline-block;
+            background-color: #1A1A1A;
+            color: #F4F3EF;
+            font-family: 'Oswald', 'Arial Narrow', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 4px 12px;
+        }
+        .content {
+            padding: 35px;
+        }
+        .editorial {
+            margin-bottom: 40px;
+            padding: 25px;
+            background-color: #FFFFFF;
+            border: 2.5px solid #1A1A1A;
+            box-shadow: 5px 5px 0px #1A1A1A;
+        }
+        .editorial h2 {
+            font-family: 'Oswald', 'Arial Narrow', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #1A1A1A;
+            margin-top: 0;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+        .editorial p {
+            line-height: 1.6;
+            color: #333333;
+            font-size: 14.5px;
+            margin: 0;
+        }
+        .dots-separator {
+            text-align: left;
+            padding: 10px 0;
+            margin: 25px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .dot {
+            background-color: #1A1A1A;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .small-dot {
+            width: 8px;
+            height: 8px;
+        }
+        .large-dot {
+            width: 22px;
+            height: 22px;
+        }
+        .section-title {
+            font-family: 'Oswald', 'Arial Narrow', 'Impact', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            color: #1A1A1A;
+            margin-top: 45px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        .section-title span {
+            position: relative;
+            display: inline-block;
+            padding: 8px 24px;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 60' preserveAspectRatio='none'><path d='M 10,30 C 10,10 230,5 230,30 C 230,55 15,58 10,35 C 8,25 40,8 210,12' style='fill:none;stroke:%23D4FF00;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;'/></svg>");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+        .article-card {
+            background-color: #FFFFFF;
+            border: 2.5px solid #1A1A1A;
+            box-shadow: 5px 5px 0px #1A1A1A;
+            padding: 25px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        .article-category {
+            align-self: flex-start;
+            font-family: 'Oswald', 'Arial Narrow', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #1A1A1A;
+            background-color: #D4FF00;
+            border: 1.5px solid #1A1A1A;
+            padding: 2px 8px;
+            margin-bottom: 15px;
+        }
+        .article-title {
+            font-family: 'Oswald', 'Arial Narrow', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin: 0 0 15px 0;
+            text-transform: uppercase;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+        }
+        .article-title a {
+            color: #1A1A1A;
+            text-decoration: none;
+        }
+        .article-title a:hover {
+            color: #555555;
+            text-decoration: underline;
+        }
+        .article-body {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+        .article-text-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .article-text {
+            font-size: 14px;
+            color: #333333;
+            line-height: 1.6;
+        }
+        .action-link {
+            font-family: 'Oswald', 'Arial Narrow', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #1A1A1A;
+            text-decoration: none;
+            border-bottom: 3px solid #1A1A1A;
+            padding-bottom: 2px;
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+        .action-link:hover {
+            color: #555555;
+            border-bottom-color: #555555;
+        }
+        .article-image-wrapper {
+            width: 140px;
+            height: 95px;
+            border: 2px solid #1A1A1A;
+            box-shadow: 3px 3px 0px #1A1A1A;
+            overflow: hidden;
+            flex-shrink: 0;
+            background-color: #F4F3EF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .article-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .fallback-image-text {
+            font-family: 'Oswald', 'Arial Narrow', sans-serif;
+            font-size: 12px;
+            color: #1A1A1A;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .video-card {
+            background-color: #FFFFFF;
+            border: 2.5px solid #1A1A1A;
+            box-shadow: 5px 5px 0px #1A1A1A;
+            padding: 25px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+        .video-thumbnail-wrapper {
+            width: 180px;
+            height: 105px;
+            border: 2px solid #1A1A1A;
+            box-shadow: 3px 3px 0px #1A1A1A;
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+            background-color: #F4F3EF;
+        }
+        .video-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 36px;
+            height: 36px;
+            background-color: #D4FF00;
+            border: 2px solid #1A1A1A;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1A1A1A;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .video-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .video-title {
+            font-family: 'Oswald', 'Arial Narrow', sans-serif;
+            font-size: 19px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin: 0 0 5px 0;
+            text-transform: uppercase;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+        .video-title a {
+            color: #1A1A1A;
+            text-decoration: none;
+        }
+        .video-title a:hover {
+            color: #555555;
+            text-decoration: underline;
+        }
+        .video-creator {
+            font-family: 'Oswald', 'Arial Narrow', sans-serif;
+            font-size: 12px;
+            color: #1A1A1A;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: inline-block;
+            background-color: #F4F3EF;
+            padding: 2px 8px;
+            border: 1px solid #1A1A1A;
+            align-self: flex-start;
+        }
+        .video-desc {
+            font-size: 13.5px;
+            color: #333333;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        .footer {
+            text-align: center;
+            padding: 35px 20px;
+            border-top: 3px solid #1A1A1A;
+            font-family: 'Oswald', 'Arial Narrow', sans-serif;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #555555;
+            background-color: #FFFFFF;
+        }
+        @media (max-width: 600px) {
+            .article-body {
+                flex-direction: column-reverse;
+            }
+            .article-image-wrapper {
+                width: 100%;
+                height: 150px;
+                margin-bottom: 10px;
+            }
+            .video-card {
+                flex-direction: column;
+            }
+            .video-thumbnail-wrapper {
+                width: 100%;
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-top">
+                <div class="logo">your mini scrapper</div>
+                <div class="logo-sub">one stop solution</div>
+            </div>
+            <h1 class="hero-title">
+                YOUR MINI<br>&nbsp;&nbsp;SCRAPPER
+            </h1>
+            <div class="header-badge">PREMIUM TECH DIGEST &bull; June 21, 2026</div>
+        </div>
+        <div class="content">
+            <div class="editorial">
+                <h2>OpenAI's Open-Weight Shift Fuels Local AI Trend as Nvidia Powers On-Device Intelligence</h2>
+                <p>The last 96 hours reveal a dynamic shift in the AI landscape, with OpenAI surprisingly contributing to the open-weight model ecosystem, challenging the traditional proprietary API dominance. Concurrently, Nvidia's new RTX Spark chip signals a strong industry push towards bringing powerful AI capabilities directly to personal devices, fostering local execution and edge computing. These movements collectively highlight a growing developer and user demand for greater control, privacy, and cost-effectiveness through accessible, on-device AI.</p>
+            </div>
+
+            <div class="dots-separator">
+                <span class="dot small-dot"></span>
+                <span class="dot large-dot"></span>
+            </div>
+
+            <div class="section-title">
+                <span>Machine Intelligence & Tech</span>
+            </div>
+            
+        <div class="article-card">
+            <span class="article-category">Frontier AI</span>
+            <h3 class="article-title"><a href="https://huggingface.co/blog/stefanwebb/evaluating-gpt-oss" target="_blank">OpenAI Releases Two Massive Open-Weight Models on Hugging Face</a></h3>
+            <div class="article-body">
+                <div class="article-text-container">
+                    <div class="article-text">OpenAI has unexpectedly released two large open-weight models, gpt-oss-120b and gpt-oss-75b, to the Hugging Face platform, sparking community discussion on their performance relative to proprietary APIs.</div>
+                    <div style="margin-top: 15px;">
+                        <a href="https://huggingface.co/blog/stefanwebb/evaluating-gpt-oss" target="_blank" class="action-link">READ ARTICLE</a>
+                    </div>
+                </div>
+                <div class="article-image-wrapper">
+                    <a href="https://huggingface.co/blog/stefanwebb/evaluating-gpt-oss" target="_blank" style="display:block; width:100%; height:100%; text-decoration:none; text-align:center; display:flex; align-items:center; justify-content:center;">
+                        <img src="https://huggingface.co/blog/assets/stefanwebb/evaluating-gpt-oss/thumbnail.png" alt="Article Image" class="article-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="fallback-image-text" style="display:none;">NEWS</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="article-card">
+            <span class="article-category">Hardware & Semiconductors</span>
+            <h3 class="article-title"><a href="https://www.bbc.com/news/articles/crmp9mppvzro" target="_blank">Nvidia Unveils RTX Spark Chip for Local AI on Personal Computers</a></h3>
+            <div class="article-body">
+                <div class="article-text-container">
+                    <div class="article-text">Nvidia announced the RTX Spark chip at Computex, designed to bring advanced AI capabilities directly to laptops and desktops, enabling local execution of AI agents and transforming the PC market in collaboration with Microsoft.</div>
+                    <div style="margin-top: 15px;">
+                        <a href="https://www.bbc.com/news/articles/crmp9mppvzro" target="_blank" class="action-link">READ ARTICLE</a>
+                    </div>
+                </div>
+                <div class="article-image-wrapper">
+                    <a href="https://www.bbc.com/news/articles/crmp9mppvzro" target="_blank" style="display:block; width:100%; height:100%; text-decoration:none; text-align:center; display:flex; align-items:center; justify-content:center;">
+                        <img src="https://ichef.bbci.co.uk/news/976/cpsprodpb/6710/production/_133481232_gettyimages-2155097475.jpg" alt="Article Image" class="article-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="fallback-image-text" style="display:none;">NEWS</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="article-card">
+            <span class="article-category">Frontier AI</span>
+            <h3 class="article-title"><a href="https://huggingface.co/blog/daya-shankar/open-source-llm-models-to-run-locally" target="_blank">The Rise of Local and Open-Weight LLMs: A Look at Deployment Trends</a></h3>
+            <div class="article-body">
+                <div class="article-text-container">
+                    <div class="article-text">The trend towards running powerful open-weight LLMs locally or on private clouds is accelerating due to cost, privacy, and control concerns, making self-hosted AI a viable production option with models like Llama 4 Scout offering extreme long-context capabilities.</div>
+                    <div style="margin-top: 15px;">
+                        <a href="https://huggingface.co/blog/daya-shankar/open-source-llm-models-to-run-locally" target="_blank" class="action-link">READ ARTICLE</a>
+                    </div>
+                </div>
+                <div class="article-image-wrapper">
+                    <a href="https://huggingface.co/blog/daya-shankar/open-source-llm-models-to-run-locally" target="_blank" style="display:block; width:100%; height:100%; text-decoration:none; text-align:center; display:flex; align-items:center; justify-content:center;">
+                        <img src="https://huggingface.co/blog/assets/daya-shankar/open-source-llm-models-to-run-locally/thumbnail.png" alt="Article Image" class="article-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="fallback-image-text" style="display:none;">NEWS</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+
+            <div class="dots-separator">
+                <span class="dot small-dot"></span>
+                <span class="dot large-dot"></span>
+            </div>
+
+            <div class="section-title">
+                <span>Developer Streams</span>
+            </div>
+            
+        <div class="video-card">
+            <div class="video-thumbnail-wrapper">
+                <a href="https://www.youtube.com/watch?v=lVS7jR93rkA" target="_blank" style="display:block; width:100%; height:100%; text-decoration:none;">
+                    <img src="https://i.ytimg.com/vi/lVS7jR93rkA/hq720.jpg" alt="Video Thumbnail" class="video-thumbnail" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="fallback-image-text" style="display:none;">VIDEO</div>
+                    <div class="video-play-btn">&#9658;</div>
+                </a>
+            </div>
+            <div class="video-info">
+                <div>
+                    <h3 class="video-title"><a href="https://www.youtube.com/watch?v=lVS7jR93rkA" target="_blank">LLM Ecosystems: Frontier vs Open-Weight Models Explained</a></h3>
+                    <span class="video-creator">Hugging Face</span>
+                    <div class="video-desc">This video provides a clear explanation of the distinctions between frontier (proprietary API-based) and open-weight (locally runnable) large language models, discussing their use cases, advantages, and deployment considerations for developers.</div>
+                </div>
+                <div style="margin-top: 10px;">
+                    <a href="https://www.youtube.com/watch?v=lVS7jR93rkA" target="_blank" class="action-link">WATCH VIDEO</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="video-card">
+            <div class="video-thumbnail-wrapper">
+                <a href="https://www.youtube.com/watch?v=Ar6t4VPOEcY" target="_blank" style="display:block; width:100%; height:100%; text-decoration:none;">
+                    <img src="https://i.ytimg.com/vi/Ar6t4VPOEcY/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLA7ihQehoooUiZEWb83K7zT3JMM5A" alt="Video Thumbnail" class="video-thumbnail" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="fallback-image-text" style="display:none;">VIDEO</div>
+                    <div class="video-play-btn">&#9658;</div>
+                </a>
+            </div>
+            <div class="video-info">
+                <div>
+                    <h3 class="video-title"><a href="https://www.youtube.com/watch?v=Ar6t4VPOEcY" target="_blank">Zig says NO to AI</a></h3>
+                    <span class="video-creator">ThePrimeagenHighlights</span>
+                    <div class="video-desc">A discussion from a programming perspective on why the Zig programming language community might resist heavy integration with AI tools, highlighting concerns about developer agency, code quality, and the potential impact of AI on foundational programming principles.</div>
+                </div>
+                <div style="margin-top: 10px;">
+                    <a href="https://www.youtube.com/watch?v=Ar6t4VPOEcY" target="_blank" class="action-link">WATCH VIDEO</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="video-card">
+            <div class="video-thumbnail-wrapper">
+                <a href="https://www.youtube.com/watch?v=DA2E8szXjoA" target="_blank" style="display:block; width:100%; height:100%; text-decoration:none;">
+                    <img src="https://i.ytimg.com/vi/DA2E8szXjoA/hq720.jpg?sqp=-oaymwE9COgCEMoBSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4Af4JgALQBYoCDAgAEAEYZSBOKDwwDw==&rs=AOn4CLA1reFLyQ3scsTQwLcV4g-aPOQOTg" alt="Video Thumbnail" class="video-thumbnail" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="fallback-image-text" style="display:none;">VIDEO</div>
+                    <div class="video-play-btn">&#9658;</div>
+                </a>
+            </div>
+            <div class="video-info">
+                <div>
+                    <h3 class="video-title"><a href="https://www.youtube.com/watch?v=DA2E8szXjoA" target="_blank">There has been a situation in AI</a></h3>
+                    <span class="video-creator">sentdex</span>
+                    <div class="video-desc">This video offers a high-level overview of recent significant developments and discussions within the AI landscape, including topics like new model releases and ongoing debates, keeping viewers updated on the fast-evolving field.</div>
+                </div>
+                <div style="margin-top: 10px;">
+                    <a href="https://www.youtube.com/watch?v=DA2E8szXjoA" target="_blank" class="action-link">WATCH VIDEO</a>
+                </div>
+            </div>
+        </div>
+        
+        </div>
+        <div class="footer">
+            Your Mini Scrapper V2.0 &bull; Automated Research Asset &bull; 96H Rolling Scan
+        </div>
+    </div>
+</body>
+</html>

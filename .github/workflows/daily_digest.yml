@@ -32,7 +32,7 @@ jobs:
 
     - name: Run Antigravity Digest Agent
       run: |
-        uv run agents-cli run "Trigger Daily Digest"
+        uvx --from google-agents-cli agents-cli run "Trigger Daily Digest"
       env:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
